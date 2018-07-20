@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 import IdeaItem from '../Components/IdeaItem'
 
 class Idea extends Component {
-    handleSubmit (e) {
-        e.preventDefault()
-    }
+
     render () {
         let ideas
         if (this.props.ideas){
@@ -15,9 +13,11 @@ class Idea extends Component {
             })
         }
         return (
-            <div className="container">
-                Ideas<br />
-                {ideas}
+            <div>
+                <h4>Ideas </h4>
+                <div className="row">
+                    {ideas}
+                </div>
             </div>
         )
     }

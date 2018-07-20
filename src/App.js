@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import AddIdea from './Components/AddIdea'
 import Idea from './Components/Idea'
+import {
+    BrowserRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom'
 
 class App extends Component {
     constructor () {
@@ -25,7 +30,7 @@ class App extends Component {
     // }
     render () {
         return (
-            <div className="App">
+            <div className="App container">
                 <AddIdea addIdea={this.handleAddIdea.bind(this)}/>
                 <hr />
                 <Idea ideas={this.state.ideas}/>
