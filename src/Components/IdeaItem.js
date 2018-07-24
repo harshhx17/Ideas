@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
 class Idea extends Component {
 
     render () {
         return (
-            // <span className="col-sm-3">
             <div className="col-sm-4">
                 <div className="card">
                     <div className="card-body text-center">
@@ -14,9 +14,13 @@ class Idea extends Component {
                     </div>
                 </div>
             </div>
-            // </span>
         )
     }
 }
 
-export default Idea
+
+let mapStateToProps = (state,props) => ({
+    idea: state.ideas[props.index]
+})
+
+export default connect(mapStateToProps)(Idea)

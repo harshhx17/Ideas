@@ -1,29 +1,24 @@
 import React, {Component} from 'react'
-
+import { bindActionCreators } from 'redux'
+import * as actions from '../Actions/index'
+import { connect } from 'react-redux'
 class AddIdea extends Component {
-    constructor () {
-        super()
-        this.state = {
-            idea: {}
-        }
-    }
+
     handleSubmit (e) {
         e.preventDefault()
         if (this.refs.title.value === ''){
             alert('Title cannot be left blank.')
         }
         else {
-            this.setState({
-                idea: {
-                    title: this.refs.title.value,
-                    shortDesc: this.refs.shortDesc.value,
-                    desc: this.refs.desc.value
-                }
-            }, function () {
-                this.props.addIdea(this.state.idea)
-            })
+            let idea = {
+                title: this.refs.title.value,
+                shortDesc: this.refs.shortDesc.value,
+                desc: this.refs.desc.value
+            }
+            this.props.action.addIdea(idea)
         }
     }
+
     render () {
         return (
             <div className="container-fluid">
@@ -38,4 +33,8 @@ class AddIdea extends Component {
     }
 }
 
-export default AddIdea
+const mapDispatchToState = dispatch => ({
+    action: bindActionCreators(actions, dispatch)
+})
+
+export default connect(null,mapDispatchToState)(AddIdea)
