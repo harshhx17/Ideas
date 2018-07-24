@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 class Idea extends Component {
 
@@ -8,7 +8,7 @@ class Idea extends Component {
             <div className="col-sm-4">
                 <div className="card">
                     <div className="card-body text-center">
-                        <h5 className="card-title">{this.props.idea.title}</h5>
+                        <Link to={'/idea/'+this.props.index}><h5 className="card-title">{this.props.idea.title}</h5></Link>
                         <p className="card-text">{this.props.idea.shortDesc}</p>
                         {this.props.idea.desc}
                     </div>
