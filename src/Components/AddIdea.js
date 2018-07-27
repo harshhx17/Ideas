@@ -13,7 +13,9 @@ class AddIdea extends Component {
             let idea = {
                 title: this.refs.title.value,
                 shortDesc: this.refs.shortDesc.value,
-                desc: this.refs.desc.value
+                desc: this.refs.desc.value,
+                upvote: 0,
+                downvote: 0
             }
             this.props.action.addIdea(idea)
         }

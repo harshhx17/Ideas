@@ -5,8 +5,10 @@ class Idea extends Component {
 
     render () {
         let ideaItems = []
-        for(var i=0;i<this.props.length;i++) {
-            ideaItems.push(<IdeaItem index={i} key={i}/>)
+        console.log('Ideas', this.props.ideas)
+        for(var key in this.props.keys) {
+            console.log('key', key)
+            ideaItems.push(<IdeaItem index={key} key={key}/>)
         }
         return (
             <div>
@@ -21,7 +23,8 @@ class Idea extends Component {
 }
 
 const mapStateToProps = state => ({
-    length: state.ideas.length
+    keys: Object.keys(state.ideas),
+    ideas: state.ideas
 })
 
 export default connect(mapStateToProps)(Idea)
