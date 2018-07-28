@@ -8,14 +8,28 @@ class ViewIdea extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleSubmit(e)
-    {
+    handleSubmit(e) {
         e.preventDefault()
+        console.log(this.props.user[this.props.match.params.id])
         if(e.target.id === 'upvote'){
-            this.props.action.upvote(this.props.match.params.id)
+            if(this.props.user[this.props.match.params.id] === 'upvote')
+                this.props.action.upvote(this.props.match.params.id, 'decrease', 'unvote')
+            else if(this.props.user[this.props.match.params.id] === 'downvote') {
+                this.props.action.downvote(this.props.match.params.id,'decrease')
+                this.props.action.upvote(this.props.match.params.id,'increase')
+            }
+            else
+                this.props.action.upvote(this.props.match.params.id,'increase')
         }
         else if(e.target.id === 'downvote'){
-            this.props.action.downvote(this.props.match.params.id)
+            if(this.props.user[this.props.match.params.id] === 'downvote')
+                this.props.action.downvote(this.props.match.params.id,'decrease', 'unvote')
+            else if(this.props.user[this.props.match.params.id] === 'upvote') {
+                this.props.action.upvote(this.props.match.params.id,'decrease')
+                this.props.action.downvote(this.props.match.params.id,'increase')
+            }
+            else
+                this.props.action.downvote(this.props.match.params.id,'increase')
         }
     }
 
@@ -30,7 +44,7 @@ class ViewIdea extends Component {
                     Description: {this.props.idea.desc}
                     <br/>
                     <button className="btn btn-success" id="upvote" onClick={this.handleSubmit}>{this.props.idea.upvote +' upvote'}</button>
-                    <button className="btn btn-danger" id="downvote" onClick={this.handleSubmit}>{this.props.idea.downvote +' upvote'}</button>
+                    <button className="btn btn-danger" id="downvote" onClick={this.handleSubmit}>{this.props.idea.downvote +' downvote'}</button>
                 </div>
             )
         }
@@ -45,10 +59,12 @@ class ViewIdea extends Component {
 }
 
 const mapStateToProps = (state,props) => ({
-    idea: state.ideas[props.match.params.id]
+    idea: state.ideas[props.match.params.id],
+    user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
     action: bindActionCreators(actions,dispatch)
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(ViewIdea)

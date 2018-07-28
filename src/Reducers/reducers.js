@@ -9,14 +9,36 @@ export const ideaReducer = (state = {}, action) => {
         return Object.assign({}, state, idea)
     }
     case 'UPVOTE': {
+        let change
+        switch (action.change) {
+        case 'increase':
+            change = 1
+            break
+        case 'decrease':
+            change = -1
+            break
+        default:
+            change = 0
+        }
         let idea = {}
-        let ideaData = Object.assign({}, state[action.ideaId], {upvote: state[action.ideaId].upvote+1})
+        let ideaData = Object.assign({}, state[action.ideaId], {upvote: state[action.ideaId].upvote + change})
         idea[action.ideaId] = ideaData
         return Object.assign({}, state, idea)
     }
     case 'DOWNVOTE': {
+        let change
+        switch (action.change) {
+        case 'increase':
+            change = 1
+            break
+        case 'decrease':
+            change = -1
+            break
+        default:
+            change = 0
+        }
         let idea = {}
-        let ideaData = Object.assign({}, state[action.ideaId], {downvote: state[action.ideaId].downvote+1})
+        let ideaData = Object.assign({}, state[action.ideaId], {downvote: state[action.ideaId].downvote + change})
         idea[action.ideaId] = ideaData
         return Object.assign({}, state, idea)
     }
@@ -24,29 +46,30 @@ export const ideaReducer = (state = {}, action) => {
         return state
     }
 }
-    
-const INITIAL_USER = {
-    upvote: [],
-    downvote: []
-}
+
+const INITIAL_USER = {}
     
 export const userReducer = (state = INITIAL_USER, action) => {
     switch (action.type) {
     case 'UPVOTE':{
-        let upvote = state.upvote
-        upvote.push(action.ideaId)
-        return Object.assign({}, state, upvote)
+        let data = {}
+        data[action.ideaId] = 'upvote'
+        if (action.unvote === 'unvote')
+            data[action.ideaId] = undefined
+        return Object.assign({}, state, data)
     }
     case 'DOWNVOTE':{
-        let downvote = state.downvote
-        downvote.push(action.ideaId)
-        return Object.assign({}, state, downvote)
+        let data = {}
+        data[action.ideaId] = 'downvote'
+        if (action.unvote === 'unvote')
+            data[action.ideaId] = undefined
+        return Object.assign({}, state, data)
     }
     default:
         return state
     }
 }
-    
+
 export default combineReducers({
     ideas: ideaReducer,
     user: userReducer

@@ -3,12 +3,16 @@ export const addIdea = idea => ({
     idea
 })
 
-export const upvote = ideaId => ({
+export const upvote = (ideaId,change,unvote) => ({
     type: 'UPVOTE',
-    ideaId
+    ideaId,
+    change,
+    unvote
 })
 
-export const  downvote = ideaId => ({
+export const  downvote = (ideaId,change,unvote) => ({
     type: 'DOWNVOTE',
-    ideaId
+    ideaId,
+    change,
+    unvote
 })
