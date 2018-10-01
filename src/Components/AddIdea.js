@@ -18,6 +18,7 @@ class AddIdea extends Component {
                 downvote: 0
             }
             this.props.action.addIdea(idea)
+            alert('Your Idea has been submitted')
         }
     }
 
